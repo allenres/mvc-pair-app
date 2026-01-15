@@ -5,3 +5,19 @@ const campuses = [
     { id: 4, code: "TAC", name: "Tacoma Site", city: "Tacoma", open: true, programs: ["Trades", "IT"] },
     { id: 5, code: "REN", name: "Renton Annex", city: "Renton", open: false, programs: ["ESL", "GED"] }
 ];
+
+export const campusRoutes = (req, res) => {
+    res.status(200).json({
+        message: "Campus directory routes",
+        routes: ["GET /", "GET /about|/info", "GET /:id", "GET /search?city=&open=&program="]
+    })
+}
+
+export const displayLocations = (req, res) => {
+    const display = campuses.map(campus => {
+        return {
+            campus
+        }
+    })
+    return res.status(200).json(display);
+}

@@ -1,12 +1,10 @@
 import { Router } from "express";
+import { campusRoutes, displayLocations } from "../controllers/campusesController.js";
 
 const router = Router();
 
-router.get(["/about", "/info"], (req, res) => {
-    res.status(200).json({
-        message: "Campus directory routes",
-        routes: ["GET /", "GET /about|/info", "GET /:id", "GET /search?city=&open=&program="]
-    })
-});
+router.get(["/about", "/info"], campusRoutes);
+
+router.get("/", displayLocations)
 
 export default router;
