@@ -14,10 +14,7 @@ export const campusRoutes = (req, res) => {
 }
 
 export const displayLocations = (req, res) => {
-    const display = campuses.map(campus => {
-        return campus;
-    })
-    return res.status(200).json(display);
+    return res.status(200).json(campuses);
 }
 
 export const displaySingleLocation = (req, res) => {
@@ -36,4 +33,34 @@ export const displaySingleLocation = (req, res) => {
             message: "Campus Not Found"
         })
     }
+}
+
+export const searchCampuses = (req, res) => {
+    const { city, program, open } = req.query;
+
+    const campusesFound = campuses.filter(el => {
+        let match = true;
+
+        if (city && el.city.toLowerCase() !== city.toLowerCase()) {
+            match = false;
+        }
+
+        if (program && !el.programs.some(p => p.toLowerCase() === program.toLowerCase())) {
+            match = false;
+        }
+
+        if (open !== undefined) {
+            const isOpen = open === 'true';
+            if (el.open !== isOpen) {
+                match = false;
+            }
+        }
+
+        return match;
+    });
+
+    return res.status(200).json({
+        message: `Found ${campusesFound.length} record(s)`,
+        results: campusesFound
+    });
 }
