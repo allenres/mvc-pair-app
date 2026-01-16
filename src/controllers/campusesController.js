@@ -15,9 +15,25 @@ export const campusRoutes = (req, res) => {
 
 export const displayLocations = (req, res) => {
     const display = campuses.map(campus => {
-        return {
-            campus
-        }
+        return campus;
     })
     return res.status(200).json(display);
+}
+
+export const displaySingleLocation = (req, res) => {
+    const { id } = req.params;
+
+    const campus = campuses.find(campus => {
+        return campus.id == id;
+    })
+
+    if (campus) {
+        return res.status(200).json({
+            campus
+        });
+    } else {
+        return res.status(404).json({
+            message: "Campus Not Found"
+        })
+    }
 }
