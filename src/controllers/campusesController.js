@@ -14,15 +14,13 @@ export const campusRoutes = (req, res) => {
 }
 
 export const displayLocations = (req, res) => {
-    return res.status(200).json(campuses);
+    return res.status(200).json({ campuses });
 }
 
 export const displaySingleLocation = (req, res) => {
     const { id } = req.params;
 
-    const campus = campuses.find(campus => {
-        return campus.id == id;
-    })
+    const campus = campuses.find(el => el.id === Number(id))
 
     if (campus) {
         return res.status(200).json({
